@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public AudioClip deathClip; // 사망 시 재생할 오디오 클립
     public float jumpForce = 700f; // 점프 힘
+    public int health = 3;
+    public GameObject[] hearts;
 
     private int jumpCount = 0; // 누적 점프 횟수
     private bool isGrounded = false; // 바닥에 닿았는지 나타냄
@@ -14,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidbody; // 사용할 리지드바디 컴포넌트
     private Animator animator; // 사용할 애니메이터 컴포넌트
     private AudioSource playerAudio; // 사용할 오디오 소스 컴포넌트
+
+    
     
     // Start is called before the first frame update
     void Start()
@@ -84,6 +88,12 @@ public class PlayerController : MonoBehaviour
             //충돌한 상대방 태그가 Dead 이며 아직 사망하지 않았다면 Die()실행
             Die();
         }
+        if (other.tag == "obstacle"&&!isDead)
+        {
+            health -= 1;
+        }
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
